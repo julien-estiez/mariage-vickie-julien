@@ -125,7 +125,7 @@ a {
 
 .hero-logos img {
 
-  width: 48px;
+  width: 150px;
 
 }
 
@@ -133,6 +133,8 @@ a {
 
   color: var(--accent);
   font-size: 28px;
+  position: relative;
+  top: -6px;
 
 }
 
