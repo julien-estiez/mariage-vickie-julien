@@ -117,7 +117,7 @@ a {
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  gap: 1px;
 
   margin-bottom: 24px;
 
@@ -127,6 +127,13 @@ a {
 
   width: 150px;
 
+}
+.hero-logos img:first-child {
+  margin-right: -4px;
+}
+
+.hero-logos img:last-child {
+  margin-left: -4px;
 }
 
 .heart {
