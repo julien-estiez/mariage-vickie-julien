@@ -149,7 +149,7 @@ a {
 
   font-family: "Allura", cursive;
   font-size: 72px;
-
+font-weight: 500;
   color: var(--accent);
 
   margin-bottom: 24px;
