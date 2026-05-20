@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infos Pratiques — Vickie & Julien</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Arapey:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--section);
+      padding: 80px 16px 64px;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-family: "Allura", cursive;
+      font-size: 72px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      font-size: 22px;
+      color: var(--secondary-text);
+      max-width: 640px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* ── CONTENT SECTIONS ── */
+    .content-section {
+      max-width: 900px;
+      margin: auto;
+      padding: 72px 16px;
+    }
+
+    .content-section + .content-section {
+      padding-top: 0;
+    }
+
+    .section-title {
+      font-family: "Allura", cursive;
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-intro {
+      font-size: 19px;
+      color: var(--secondary-text);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--section);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── ACCORDION (hébergements) ── */
+    .accordion-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .accordion-item {
+      border: 1px solid #ddd7cc;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--background);
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+
+    .accordion-header h3 {
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text);
+    }
+
+    .accordion-toggle {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      transition: 0.2s;
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 0 20px 20px;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    .accordion-item.open .accordion-toggle {
+      /* minus sign when open */
+    }
+
+    .accordion-body ul {
+      list-style: disc;
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .accordion-body ul li {
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .accordion-body ul li span {
+      color: var(--text);
+    }
+
+    /* ── DRESS CODE ── */
+    .dress-block {
+      background: var(--section);
+      border-radius: 20px;
+      padding: 40px 40px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .dress-icon {
+      font-size: 48px;
+      flex-shrink: 0;
+    }
+
+    .dress-text h3 {
+      font-family: "Allura", cursive;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .dress-text p {
+      font-size: 18px;
+      color: var(--secondary-text);
+      line-height: 1.7;
+    }
+
+    /* ── TIPS CARDS (météo) ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .tip-card {
+      background: var(--section);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+
+    .tip-card .tip-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--secondary-text);
+      margin-bottom: 8px;
+    }
+
+    .tip-card p {
+      font-size: 17px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--section);
+      padding: 80px 16px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: "Allura", cursive;
+      font-size: 56px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 20px;
+      color: var(--secondary-text);
+      max-width: 520px;
+      margin: auto;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .page-hero h1 { font-size: 52px; }
+      .page-hero p { font-size: 18px; }
+      .section-title { font-size: 42px; }
+      .content-section { padding: 48px 16px; }
+      .accordion-grid { grid-template-columns: 1fr; }
+      .dress-block { flex-direction: column; gap: 16px; padding: 28px 20px; }
+      .cta-section h2 { font-size: 44px; }
+      .cta-section p { font-size: 18px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <a href="index.html">Vickie & Julien</a>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="lieu-et-programme.html">Lieu & Programme</a>
+      <a href="infos-pratiques.html">Infos Pratiques</a>
+      <a href="#">Cagnotte</a>
+      <a href="#" class="btn small">Répondre</a>
+    </nav>
+    <button class="burger">☰</button>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <h1>Infos Pratiques</h1>
+    <p>Tout ce dont vous avez besoin pour vous préparer sereinement et profiter pleinement de cette journée avec nous.</p>
+  </section>
+
+  <!-- HÉBERGEMENTS -->
+  <div class="content-section">
+
+    <h2 class="section-title">Hébergements</h2>
+    <p class="section-intro">Voici quelques adresses que nous avons sélectionnées avec soin, proches du lieu et dans l'esprit de notre célébration.</p>
+
+    <div class="accordion-grid">
+
+      <!-- Gîtes & Chambres d'hôtes -->
+      <div class="accordion-item open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3>Les Gîtes et Chambres d'hôtes</h3>
+          <div class="accordion-toggle" aria-label="Fermer">−</div>
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li><span>Cannelle</span></li>
+            <li><span>La Claie des Landes</span></li>
+            <li><span>La Maison Douce</span></li>
+            <li><span>Le Gîte Guillotin</span></li>
+            <li><span>Git Anes</span></li>
+            <li><span>Gîte du Foso</span></li>
+            <li><span>Gîte La Fontaine</span></li>
+            <li><span>Moulin de la Beraudaie</span></li>
+            <li><span>Orchidee</span></li>
+            <li><span>Riverview</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hôtels -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3>Les Hôtels</h3>
+          <div class="accordion-toggle" aria-label="Ouvrir">+</div>
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li><span>À compléter</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Campings -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3>Les Campings</h3>
+          <div class="accordion-toggle" aria-label="Ouvrir">+</div>
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li><span>À compléter</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- DRESS CODE -->
+  <div class="content-section">
+    <h2 class="section-title">Dress Code</h2>
+    <p class="section-intro">Naturel & confortable</p>
+
+    <div class="dress-block">
+      <div class="dress-icon">👗</div>
+      <div class="dress-text">
+        <h3>Naturel & confortable</h3>
+        <p>Des tenues un peu habillées, dans lesquelles vous vous sentez bien. Pensez lin, coton, matières douces et respirantes. Nous souhaitons que vous vous sentiez à l'aise et vous-même.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- MÉTÉO & PLEIN AIR -->
+  <div class="content-section">
+    <h2 class="section-title">Météo & Plein Air</h2>
+    <p class="section-intro">Notre célébration se déroulera en grande partie en extérieur. Voici quelques conseils pour profiter au mieux de la journée.</p>
+
+    <div class="tips-grid">
+
+      <div class="tip-card">
+        <div class="tip-icon">☀️</div>
+        <h3>Protection solaire</h3>
+        <p>Chapeau, lunettes de soleil et crème solaire sont vos meilleurs alliés.</p>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">🧥</div>
+        <h3>Une petite laine</h3>
+        <p>Les soirées peuvent être fraîches — prévoyez une veste légère ou un châle.</p>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">👟</div>
+        <h3>Chaussures confortables</h3>
+        <p>Le terrain est naturel — évitez les talons hauts pour votre confort.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Des questions ?</h2>
+    <p>
+      Si vous avez la moindre question ou besoin d'informations complémentaires,
+      n'hésitez pas à nous contacter — nous serons ravis de vous répondre.
+    </p>
+    <a href="#" class="btn">Répondre au faire-part</a>
+  </section>
+
+  <script>
+    function toggleAccordion(header) {
+      const item = header.closest('.accordion-item');
+      const isOpen = item.classList.contains('open');
+      const toggle = header.querySelector('.accordion-toggle');
+
+      // Close all
+      document.querySelectorAll('.accordion-item').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.accordion-toggle').textContent = '+';
+      });
+
+      // Open clicked one if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        toggle.textContent = '−';
+      }
+    }
+
+    // Burger menu
+    document.querySelector('.burger').addEventListener('click', () => {
+      const nav = document.querySelector('.nav-links');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+  </script>
+
+</body>
+</html>
