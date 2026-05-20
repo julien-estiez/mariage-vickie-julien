@@ -63,93 +63,10 @@
 
       <h1>Vickie & Julien</h1>
 
-      <div class="countdown">
-        <div class="countdown-item">
-          <span class="countdown-number" id="cd-days">--</span>
-          <span class="countdown-label">jours</span>
-        </div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-item">
-          <span class="countdown-number" id="cd-hours">--</span>
-          <span class="countdown-label">heures</span>
-        </div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-item">
-          <span class="countdown-number" id="cd-minutes">--</span>
-          <span class="countdown-label">minutes</span>
-        </div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-item">
-          <span class="countdown-number" id="cd-seconds">--</span>
-          <span class="countdown-label">secondes</span>
-        </div>
-      </div>
-
-      <style>
-        .countdown {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 40px;
-        }
-        .countdown-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          min-width: 72px;
-        }
-        .countdown-number {
-          font-family: "Allura", cursive;
-          font-size: 64px;
-          line-height: 1;
-          color: var(--accent);
-        }
-        .countdown-label {
-          font-size: 13px;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: var(--secondary-text);
-          margin-top: 4px;
-        }
-        .countdown-sep {
-          font-size: 40px;
-          color: var(--accent);
-          opacity: 0.4;
-          margin-bottom: 20px;
-          line-height: 1;
-        }
-        @media (max-width: 768px) {
-          .countdown-number { font-size: 44px; }
-          .countdown-item { min-width: 52px; }
-          .countdown-sep { font-size: 28px; }
-        }
-      </style>
-
-      <script>
-        (function() {
-          const target = new Date('2027-09-04T15:30:00');
-          function update() {
-            const now = new Date();
-            const diff = target - now;
-            if (diff <= 0) {
-              ['days','hours','minutes','seconds'].forEach(u =>
-                document.getElementById('cd-' + u).textContent = '0');
-              return;
-            }
-            const days    = Math.floor(diff / 86400000);
-            const hours   = Math.floor((diff % 86400000) / 3600000);
-            const minutes = Math.floor((diff % 3600000)  / 60000);
-            const seconds = Math.floor((diff % 60000)    / 1000);
-            document.getElementById('cd-days').textContent    = days;
-            document.getElementById('cd-hours').textContent   = String(hours).padStart(2, '0');
-            document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
-          }
-          update();
-          setInterval(update, 1000);
-        })();
-      <script>
+      <p class="subtitle">
+        Nous serions très heureux de vous avoir à nos côtés
+        pour célébrer cette journée.
+      </p>
 
       <div class="event-info">
 
