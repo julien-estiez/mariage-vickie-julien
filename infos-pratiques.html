@@ -15,11 +15,8 @@
 
     /* ── PAGE HERO ── */
     .page-hero {
-       background-image: linear-gradient(rgba(252,250,248,0.55), rgba(252,250,248,0.55)), url("./images/fleurs.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      padding: 100px 16px 80px;
+      background: var(--section);
+      padding: 80px 16px 64px;
       text-align: center;
     }
 
@@ -121,16 +118,15 @@
     }
 
     .accordion-body {
-      display: none;
-      padding: 0 20px 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 20px;
     }
 
     .accordion-item.open .accordion-body {
-      display: block;
-    }
-
-    .accordion-item.open .accordion-toggle {
-      /* minus sign when open */
+      max-height: 600px;
+      padding: 0 20px 20px;
     }
 
     .accordion-body ul {
@@ -146,8 +142,14 @@
       line-height: 1.4;
     }
 
-    .accordion-body ul li span {
+    .accordion-body ul li a {
       color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .accordion-body ul li a:hover {
+      color: var(--accent);
     }
 
     /* ── DRESS CODE ── */
@@ -289,16 +291,16 @@
         </div>
         <div class="accordion-body">
           <ul>
-            <li><span>Cannelle</span></li>
-            <li><span>La Claie des Landes</span></li>
-            <li><span>La Maison Douce</span></li>
-            <li><span>Le Gîte Guillotin</span></li>
-            <li><span>Git Anes</span></li>
-            <li><span>Gîte du Foso</span></li>
-            <li><span>Gîte La Fontaine</span></li>
-            <li><span>Moulin de la Beraudaie</span></li>
-            <li><span>Orchidee</span></li>
-            <li><span>Riverview</span></li>
+            <li><a href="https://www.gite-cannelle.fr" target="_blank">Cannelle</a></li>
+            <li><a href="https://www.claiedeslandes.fr" target="_blank">La Claie des Landes</a></li>
+            <li><a href="https://www.lamaisondouce.fr" target="_blank">La Maison Douce</a></li>
+            <li><a href="https://www.legiteguillotin.fr" target="_blank">Le Gîte Guillotin</a></li>
+            <li><a href="https://www.gitanes.fr" target="_blank">Git Anes</a></li>
+            <li><a href="https://www.gitedufoso.fr" target="_blank">Gîte du Foso</a></li>
+            <li><a href="https://www.gitelafontaine.fr" target="_blank">Gîte La Fontaine</a></li>
+            <li><a href="https://www.moulindelaberaudaie.fr" target="_blank">Moulin de la Beraudaie</a></li>
+            <li><a href="https://www.orchidee-gite.fr" target="_blank">Orchidee</a></li>
+            <li><a href="https://www.riverview-gite.fr" target="_blank">Riverview</a></li>
           </ul>
         </div>
       </div>
@@ -311,7 +313,7 @@
         </div>
         <div class="accordion-body">
           <ul>
-            <li><span>À compléter</span></li>
+            <li><a href="#" target="_blank">À compléter</a></li>
           </ul>
         </div>
       </div>
@@ -324,7 +326,7 @@
         </div>
         <div class="accordion-body">
           <ul>
-            <li><span>À compléter</span></li>
+            <li><a href="#" target="_blank">À compléter</a></li>
           </ul>
         </div>
       </div>
@@ -394,14 +396,10 @@
       const isOpen = item.classList.contains('open');
       const toggle = header.querySelector('.accordion-toggle');
 
-      // Close all
-      document.querySelectorAll('.accordion-item').forEach(el => {
-        el.classList.remove('open');
-        el.querySelector('.accordion-toggle').textContent = '+';
-      });
-
-      // Open clicked one if it was closed
-      if (!isOpen) {
+      if (isOpen) {
+        item.classList.remove('open');
+        toggle.textContent = '+';
+      } else {
         item.classList.add('open');
         toggle.textContent = '−';
       }
