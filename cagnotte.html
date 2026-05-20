@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cagnotte — Vickie & Julien</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Arapey:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--section);
+      padding: 80px 16px 64px;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-family: "Allura", cursive;
+      font-size: 72px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .page-hero .tagline {
+      font-size: 22px;
+      color: var(--secondary-text);
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    /* ── INTRO BLOCK ── */
+    .intro-block {
+      max-width: 720px;
+      margin: 64px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    .intro-block p {
+      font-size: 19px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .intro-block p em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .notice-box {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff8f5;
+      border: 1px solid #f0d5c8;
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-top: 8px;
+      text-align: left;
+      max-width: 600px;
+    }
+
+    .notice-box .notice-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .notice-box p {
+      font-size: 17px;
+      color: var(--secondary-text);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .notice-box strong {
+      color: var(--accent);
+    }
+
+    /* ── CAGNOTTE IFRAME ── */
+    .cagnotte-section {
+      max-width: 820px;
+      margin: 0 auto 72px;
+      padding: 0 16px;
+    }
+
+    .cagnotte-wrapper {
+      background: white;
+      border: 1px solid #e0dbd2;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .frais-badge {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 15px;
+      letter-spacing: 0.03em;
+    }
+
+    .frais-badge strong {
+      font-weight: 400;
+    }
+
+    /* ── GIFT SECTION ── */
+    .gift-section {
+      background: var(--section);
+      padding: 72px 0;
+      overflow: hidden;
+    }
+
+    .gift-section-header {
+      text-align: center;
+      padding: 0 16px;
+      margin-bottom: 48px;
+    }
+
+    .gift-section-header h2 {
+      font-family: "Allura", cursive;
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .gift-section-header p {
+      font-size: 19px;
+      color: var(--secondary-text);
+      max-width: 580px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    /* Infinite scroll ticker */
+    .gift-ticker-wrap {
+      position: relative;
+      overflow: hidden;
+      /* fade edges */
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    .gift-ticker {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: ticker-scroll 40s linear infinite;
+    }
+
+    .gift-ticker:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .gift-card {
+      flex-shrink: 0;
+      width: 160px;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      text-align: center;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+
+    .gift-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+    }
+
+    .gift-card .gift-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .gift-card .gift-label {
+      padding: 12px 10px 16px;
+      font-size: 14px;
+      color: var(--secondary-text);
+      line-height: 1.4;
+    }
+
+    /* ── ON PLACE BOX ── */
+    .on-place-section {
+      max-width: 680px;
+      margin: 64px auto;
+      padding: 0 16px;
+    }
+
+    .on-place-box {
+      background: var(--section);
+      border-radius: 20px;
+      padding: 40px 36px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .on-place-box .box-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+
+    .on-place-box .box-text h3 {
+      font-family: "Allura", cursive;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .on-place-box .box-text p {
+      font-size: 18px;
+      color: var(--secondary-text);
+      line-height: 1.7;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--section);
+      padding: 80px 16px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: "Allura", cursive;
+      font-size: 56px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 20px;
+      color: var(--secondary-text);
+      max-width: 500px;
+      margin: auto;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .page-hero h1 { font-size: 52px; }
+      .page-hero .tagline { font-size: 18px; }
+      .gift-section-header h2 { font-size: 40px; }
+      .gift-card { width: 130px; }
+
+      .on-place-box { flex-direction: column; gap: 16px; padding: 28px 20px; }
+      .cta-section h2 { font-size: 44px; }
+      .notice-box { flex-direction: column; gap: 8px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <a href="index.html">Vickie & Julien</a>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="lieu-et-programme.html">Lieu & Programme</a>
+      <a href="infos-pratiques.html">Infos Pratiques</a>
+      <a href="cagnotte.html">Cagnotte</a>
+      <a href="rsvp.html" class="btn small">Répondre</a>
+    </nav>
+    <button class="burger">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <h1>La Cagnotte</h1>
+    <p class="tagline">Votre présence est déjà le plus beau des cadeaux. Si vous souhaitez nous gâter un peu, voici quelques idées.</p>
+  </section>
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <p>
+      Nous débutons notre vie commune et rêvons de construire un nid douillet à deux.
+      Si l'envie vous prend de contribuer à cette nouvelle aventure, votre participation
+      nous toucherait énormément — qu'elle soit grande ou toute petite.
+    </p>
+    <p>
+      <em>Il n'y a aucune obligation.</em> Votre présence et votre bonne humeur ce jour-là
+      sont tout ce dont nous avons besoin pour que cette journée soit parfaite.
+    </p>
+
+    <div class="notice-box">
+      <div class="notice-icon">💸</div>
+      <p>
+        <strong>Frais de plateforme : 0 €.</strong><br>
+        La cagnotte est configurée avec <strong>0 % de frais</strong> — la totalité de votre contribution nous revient directement, sans aucune retenue.
+      </p>
+    </div>
+  </div>
+
+  <!-- CAGNOTTE IFRAME -->
+  <div class="cagnotte-section">
+    <div class="cagnotte-wrapper">
+      <div class="frais-badge">
+        <strong>✓ Contribution intégrale reversée — frais : 0 €</strong>
+      </div>
+      <iframe
+        id="op-iframe-18DRnl1n"
+        src="https://www.onparticipe.fr/c/18DRnl1n/participe/iframe"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer"
+        style="width:100%; border:none; display:block;"
+      ></iframe>
+    </div>
+  </div>
+
+  <!-- GIFT IDEAS -->
+  <section class="gift-section">
+    <div class="gift-section-header">
+      <h2>À quoi ça va servir ?</h2>
+      <p>
+        Votre contribution nous aidera à nous installer et à créer un intérieur qui nous ressemble —
+        des petites choses du quotidien aux grands projets, tout compte.
+      </p>
+    </div>
+
+    <div class="gift-ticker-wrap">
+            <div class="gift-ticker" id="ticker">
+
+        <!-- Série 1 -->
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau1.png" alt="Lits & literie"><div class="gift-label">Lits & literie</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau2.png" alt="Meubles & mobilier"><div class="gift-label">Meubles & mobilier</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau3.png" alt="Couverts & vaisselle"><div class="gift-label">Couverts & vaisselle</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau4.png" alt="Jeux de société"><div class="gift-label">Jeux de société</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau5.png" alt="Draps & linge de bain"><div class="gift-label">Draps & linge de bain</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau6.png" alt="Linge de maison"><div class="gift-label">Linge de maison</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau7.png" alt="Vases & déco"><div class="gift-label">Vases & déco</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau8.png" alt="Livres"><div class="gift-label">Livres</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau9.png" alt="Bougies & ambiance"><div class="gift-label">Bougies & ambiance</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau10.png" alt="Ustensiles de cuisine"><div class="gift-label">Ustensiles de cuisine</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau11.png" alt="Plantes & jardinage"><div class="gift-label">Plantes & jardinage</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau12.png" alt="Tableaux & affiches"><div class="gift-label">Tableaux & affiches</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau13.png" alt="Café & petit-déjeuner"><div class="gift-label">Café & petit-déjeuner</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau14.png" alt="Rangement"><div class="gift-label">Rangement</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau15.png" alt="Musique & culture"><div class="gift-label">Musique & culture</div></div>
+
+        <!-- Série 2 (copie pour boucle infinie) -->
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau1.png" alt="Lits & literie"><div class="gift-label">Lits & literie</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau2.png" alt="Meubles & mobilier"><div class="gift-label">Meubles & mobilier</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau3.png" alt="Couverts & vaisselle"><div class="gift-label">Couverts & vaisselle</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau4.png" alt="Jeux de société"><div class="gift-label">Jeux de société</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau5.png" alt="Draps & linge de bain"><div class="gift-label">Draps & linge de bain</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau6.png" alt="Linge de maison"><div class="gift-label">Linge de maison</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau7.png" alt="Vases & déco"><div class="gift-label">Vases & déco</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau8.png" alt="Livres"><div class="gift-label">Livres</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau9.png" alt="Bougies & ambiance"><div class="gift-label">Bougies & ambiance</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau10.png" alt="Ustensiles de cuisine"><div class="gift-label">Ustensiles de cuisine</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau11.png" alt="Plantes & jardinage"><div class="gift-label">Plantes & jardinage</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau12.png" alt="Tableaux & affiches"><div class="gift-label">Tableaux & affiches</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau13.png" alt="Café & petit-déjeuner"><div class="gift-label">Café & petit-déjeuner</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau14.png" alt="Rangement"><div class="gift-label">Rangement</div></div>
+        <div class="gift-card"><img class="gift-img" src="./images/cadeau15.png" alt="Musique & culture"><div class="gift-label">Musique & culture</div></div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ON PLACE -->
+  <div class="on-place-section">
+    <div class="on-place-box">
+      <div class="box-icon">🎁</div>
+      <div class="box-text">
+        <h3>Vous préférez en main propre ?</h3>
+        <p>
+          Pas de souci du tout ! Une boîte sera disponible sur place le jour du mariage
+          pour ceux et celles qui souhaitent nous remettre une enveloppe directement.
+          Aucune façon de faire n'est meilleure qu'une autre — l'essentiel, c'est vous.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Merci du fond du cœur</h2>
+    <p>
+      Chaque geste compte, et nous sommes touchés par votre générosité.
+      Nous avons hâte de vous retrouver le 4 septembre 2027 !
+    </p>
+    <a href="rsvp.html" class="btn">Répondre au faire-part</a>
+  </section>
+
+  <script>
+    // Hauteur dynamique de l'iframe onparticipe
+    window.addEventListener('message', (event) => {
+      if (event.data.opIframeHeight) {
+        document.getElementById('op-iframe-18DRnl1n').style.height = event.data.opIframeHeight + 'px';
+      }
+    });
+
+    // Burger menu
+    document.querySelector('.burger').addEventListener('click', () => {
+      const nav = document.querySelector('.nav-links');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+  </script>
+
+</body>
+</html>
