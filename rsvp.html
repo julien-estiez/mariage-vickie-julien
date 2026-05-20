@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP — Vickie & Julien</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Arapey:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--section);
+      padding: 72px 16px 56px;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-family: "Allura", cursive;
+      font-size: 72px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .page-hero p {
+      font-size: 20px;
+      color: var(--secondary-text);
+      max-width: 540px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* ── FORM SECTION ── */
+    .form-section {
+      max-width: 680px;
+      margin: auto;
+      padding: 64px 16px;
+    }
+
+    .form-intro h2 {
+      font-family: "Allura", cursive;
+      font-size: 44px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .form-intro p {
+      font-size: 17px;
+      color: var(--secondary-text);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: white;
+      border: 1px solid #e0dbd2;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .form-group.full {
+      width: 100%;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      font-family: "Arapey", serif;
+      font-size: 16px;
+      color: var(--text);
+      background: var(--background);
+      border: 1px solid #ddd7cc;
+      border-radius: 8px;
+      padding: 10px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 96px;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23817365' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .form-submit {
+      margin-top: 24px;
+    }
+
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-family: "Arapey", serif;
+      font-size: 17px;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .success-message .success-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .success-message h3 {
+      font-family: "Allura", cursive;
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .success-message p {
+      font-size: 18px;
+      color: var(--secondary-text);
+      line-height: 1.6;
+    }
+
+    /* ── INFO CARDS ── */
+    .info-strip {
+      background: var(--section);
+      padding: 56px 16px;
+    }
+
+    .info-strip-inner {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .info-strip-card {
+      background: white;
+      border: 1px solid #e0dbd2;
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .info-strip-card h3 {
+      font-family: "Allura", cursive;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .info-strip-card p {
+      font-size: 16px;
+      color: var(--secondary-text);
+      line-height: 1.6;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .page-hero h1 { font-size: 52px; }
+      .page-hero p { font-size: 17px; }
+      .form-row { flex-direction: column; gap: 20px; }
+      .form-card { padding: 24px 18px; }
+      .info-strip-inner { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <a href="index.html">Vickie & Julien</a>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="lieu-et-programme.html">Lieu & Programme</a>
+      <a href="infos-pratiques.html">Infos Pratiques</a>
+      <a href="https://www.onparticipe.fr/c/18DRnl1n" target="_blank">Cagnotte</a>
+      <a href="rsvp.html" class="btn small">Répondre</a>
+    </nav>
+    <button class="burger">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <h1>Répondre au faire-part</h1>
+    <p>Nous avons hâte de vous retrouver pour partager ce moment de joie et de simplicité.</p>
+  </section>
+
+  <!-- FORM -->
+  <div class="form-section">
+
+    <div class="form-intro">
+      <h2>Merci de prendre le temps de nous répondre</h2>
+      <p>Votre présence compte énormément pour nous. En remplissant ce formulaire, vous nous aidez à préparer cette journée avec soin et à nous assurer que chacun·e se sente bien accueilli·e.</p>
+    </div>
+
+    <!-- GOOGLE FORM -->
+    <div class="form-card" style="padding: 0; overflow: hidden;">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSdQkuPcgS_1My-1uXqVeDHAhisBQPg_1295dCdXaSNzekTpjQ/viewform?embedded=true"
+        width="100%"
+        height="1067"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        style="display: block;"
+      >Chargement…</iframe>
+    </div>
+
+  </div>
+
+  <!-- INFO CARDS -->
+  <div class="info-strip">
+    <div class="info-strip-inner">
+
+      <div class="info-strip-card">
+        <h3>Une question ?</h3>
+        <p>N'hésitez pas à nous écrire un petit mot dans le formulaire ou à nous contacter directement.</p>
+      </div>
+
+      <div class="info-strip-card">
+        <h3>Date limite</h3>
+        <p>Merci de nous répondre avant le 15 mai 2027 pour nous aider à finaliser l'organisation.</p>
+      </div>
+
+      <div class="info-strip-card">
+        <h3>Covoiturage</h3>
+        <p>Pensez à indiquer si vous pouvez partager un trajet pour rendre notre fête plus verte.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Burger menu
+    document.querySelector('.burger').addEventListener('click', () => {
+      const nav = document.querySelector('.nav-links');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+  </script>
+
+</body>
+</html>
