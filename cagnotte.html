@@ -468,6 +468,17 @@
     //   const nav = document.querySelector('.nav-links');
     //   nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
     // });
+    const burger = document.querySelector('.burger');
+  const menu = document.getElementById('mobile-menu');
+  const close = document.getElementById('menu-close');
+
+  burger.addEventListener('click', () => menu.classList.add('open'));
+  close.addEventListener('click', () => menu.classList.remove('open'));
+
+  // Ferme aussi en cliquant en dehors des liens
+  menu.addEventListener('click', (e) => {
+    if (e.target === menu) menu.classList.remove('open');
+  });
   </script>
   <div class="mobile-menu" id="mobile-menu">
   <button class="mobile-menu-close" id="menu-close">✕</button>
@@ -478,7 +489,7 @@
   <a href="rsvp.html" class="btn">Répondre</a>
 </div>
 
-<script>
+<!-- <script>
   const burger = document.querySelector('.burger');
   const menu = document.getElementById('mobile-menu');
   const close = document.getElementById('menu-close');
@@ -490,7 +501,7 @@
   menu.addEventListener('click', (e) => {
     if (e.target === menu) menu.classList.remove('open');
   });
-</script>
+</script> -->
 
 </body>
 </html>
