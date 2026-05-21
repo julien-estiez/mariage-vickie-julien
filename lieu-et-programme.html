@@ -549,6 +549,27 @@
     //   nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
     // });
   </script>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="menu-close">✕</button>
+  <a href="index.html">Accueil</a>
+  <a href="lieu-et-programme.html">Lieu & Programme</a>
+  <a href="infos-pratiques.html">Infos pratiques</a>
+  <a href="cagnotte.html">Cagnotte</a>
+  <a href="rsvp.html" class="btn">Répondre</a>
+</div>
 
+<script>
+  const burger = document.querySelector('.burger');
+  const menu = document.getElementById('mobile-menu');
+  const close = document.getElementById('menu-close');
+
+  burger.addEventListener('click', () => menu.classList.add('open'));
+  close.addEventListener('click', () => menu.classList.remove('open'));
+
+  // Ferme aussi en cliquant en dehors des liens
+  menu.addEventListener('click', (e) => {
+    if (e.target === menu) menu.classList.remove('open');
+  });
+</script>
 </body>
 </html>
