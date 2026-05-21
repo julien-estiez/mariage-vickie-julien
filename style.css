@@ -121,7 +121,7 @@ a {
   gap: 1px;
 
   margin-bottom: 10px;
-  margin-top: -44px;
+  /* margin-top: -44px; */
 
 
 }
@@ -144,7 +144,7 @@ a {
   color: var(--accent);
   font-size: 28px;
   position: relative;
-  top: -30px;
+  /* top: -30px; */
 
 }
 
