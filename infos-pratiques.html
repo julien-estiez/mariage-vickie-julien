@@ -254,6 +254,131 @@
     }
 
  
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-bottom: 2px solid var(--section);
+      background: var(--background);
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      padding: 18px 36px;
+      font-family: "Arapey", serif;
+      font-size: 17px;
+      color: var(--secondary-text);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      max-width: 760px;
+      margin: auto;
+      padding: 72px 16px;
+    }
+
+    .faq-section h2 {
+      font-family: "Allura", cursive;
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e8e3d9;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .faq-item:first-of-type {
+      border-top: 1px solid #e8e3d9;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 4px;
+      cursor: pointer;
+      gap: 16px;
+      user-select: none;
+    }
+
+    .faq-question h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      font-size: 20px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 4px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding: 0 4px 24px;
+    }
+
+    .faq-answer p {
+      font-size: 17px;
+      color: var(--secondary-text);
+      line-height: 1.7;
+    }
+
+    .faq-answer a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 768px) {
+      .tab-btn { padding: 14px 20px; font-size: 15px; }
+      .faq-section { padding: 48px 16px; }
+      .faq-question h3 { font-size: 16px; }
+    }
+
   .mobile-menu {
     display: none;
     position: fixed;
@@ -320,6 +445,14 @@
     <p>Tout ce dont vous avez besoin pour vous préparer sereinement et profiter pleinement de cette journée avec nous.</p>
   </section>
 
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="infos">Infos pratiques</button>
+    <button class="tab-btn" data-tab="faq">FAQ</button>
+  </div>
+
+  <div class="tab-content active" id="tab-infos">
   <!-- HÉBERGEMENTS -->
   <div class="content-section">
 
@@ -431,6 +564,118 @@
     </div>
   </div>
 
+
+  </div><!-- /tab-infos -->
+
+  <!-- TAB FAQ -->
+  <div class="tab-content" id="tab-faq">
+    <div class="faq-section">
+
+      <h2>Questions fréquentes</h2>
+
+      <div class="faq-item open">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Les enfants sont-ils les bienvenus ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>À compléter — ex : Oui, les enfants sont les bienvenus ! / Non, nous avons choisi de réserver cette journée aux adultes pour que chacun puisse profiter pleinement de la fête.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Y a-t-il un hébergement sur place ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>À compléter — ex : Le domaine ne dispose pas d'hébergement sur place, mais nous avons sélectionné des adresses à proximité dans l'onglet Infos pratiques.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Comment s'habiller ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>Tenues naturelles et confortables : lin, coton, matières douces. La cérémonie et le repas se déroulent en extérieur — évitez les talons hauts et prévoyez une petite laine pour le soir.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Y a-t-il un parking sur place ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>À compléter — ex : Oui, un parking gratuit est disponible sur le domaine. Nous vous encourageons tout de même à covoiturer !</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Peut-on venir en train ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>La gare la plus proche est Vannes, à environ 30 minutes en voiture du domaine. Si vous venez en train, signalez-le nous via le formulaire RSVP — nous pourrons peut-être organiser des navettes ou vous mettre en relation avec des invités en voiture.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>À quelle heure commencent les festivités ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>L'accueil des invités commence à 15h30. La cérémonie laïque aura lieu à 18h30. Nous vous conseillons d'arriver entre 15h30 et 18h00 pour profiter de l'après-midi en toute tranquillité.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Jusqu'à quelle heure la soirée se termine-t-elle ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>À compléter — ex : La musique s'arrêtera vers 2h du matin. Pensez à prévoir votre hébergement à l'avance !</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Y a-t-il des restrictions alimentaires à signaler ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>Oui ! Merci de nous indiquer toute allergie ou préférence alimentaire dans le formulaire RSVP. Nous transmettrons l'information aux traiteurs pour que tout le monde puisse se régaler.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Peut-on prendre des photos pendant la cérémonie ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>À compléter — ex : Nous aimerions que vous profitiez pleinement du moment, les yeux grands ouverts plutôt que derrière un écran. Un photographe professionnel sera là pour immortaliser la journée. / Bien sûr, faites-vous plaisir !</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Comment accéder au site le jour J ?</h3>
+          <span class="faq-chevron">∨</span>
+        </div>
+        <div class="faq-answer">
+          <p>À compléter — ex : Tapez "La Cour de Bovrel, Saint Guyomard" dans votre GPS. Un fléchage sera mis en place à partir du bourg. En cas de doute, appelez-nous !</p>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /tab-faq -->
+
   <!-- CTA -->
   <section class="cta-section">
     <h2>Des questions ?</h2>
@@ -442,7 +687,36 @@
   </section>
 
   <script>
+    // Accordion hébergements
     function toggleAccordion(header) {
+      const item = header.closest('.accordion-item');
+      const isOpen = item.classList.contains('open');
+      const toggle = header.querySelector('.accordion-toggle');
+      if (isOpen) {
+        item.classList.remove('open');
+        toggle.textContent = '+';
+      } else {
+        item.classList.add('open');
+        toggle.textContent = '−';
+      }
+    }
+
+    // FAQ
+    function toggleFaq(question) {
+      const item = question.closest('.faq-item');
+      item.classList.toggle('open');
+    }
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+    function toggleAccordion_REMOVE() {
       const item = header.closest('.accordion-item');
       const isOpen = item.classList.contains('open');
       const toggle = header.querySelector('.accordion-toggle');
