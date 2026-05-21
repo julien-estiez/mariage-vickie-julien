@@ -12,6 +12,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&family=Arapey:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <style>
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(252, 250, 248, 0.97);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-menu a {
+    font-family: "Arapey", serif;
+    font-size: 26px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .mobile-menu a.btn {
+    font-size: 18px;
+    padding: 14px 32px;
+    margin-top: 8px;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--secondary-text);
+    padding: 8px;
+  }
+</style>
 </head>
 
 <body>
@@ -127,6 +170,28 @@
     </div>
 
   </section>
+  <div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="menu-close">✕</button>
+  <a href="index.html">Accueil</a>
+  <a href="lieu-et-programme.html">Lieu & Programme</a>
+  <a href="infos-pratiques.html">Infos pratiques</a>
+  <a href="cagnotte.html">Cagnotte</a>
+  <a href="rsvp.html" class="btn">Répondre</a>
+</div>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const menu = document.getElementById('mobile-menu');
+  const close = document.getElementById('menu-close');
+
+  burger.addEventListener('click', () => menu.classList.add('open'));
+  close.addEventListener('click', () => menu.classList.remove('open'));
+
+  // Ferme aussi en cliquant en dehors des liens
+  menu.addEventListener('click', (e) => {
+    if (e.target === menu) menu.classList.remove('open');
+  });
+</script>
 
 </body>
 </html>
