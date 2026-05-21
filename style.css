@@ -159,6 +159,18 @@ font-weight: 500;
 
 }
 
+.subtitle_countdown {
+
+  max-width: 650px;
+
+  margin: auto;
+  margin-bottom: 40px;
+color: var(--accent2);
+  font-size: 60px;
+  line-height: 1.5;
+
+}
+
 .subtitle {
 
   max-width: 650px;
