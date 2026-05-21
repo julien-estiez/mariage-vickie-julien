@@ -155,7 +155,7 @@ a {
 font-weight: 500;
   color: var(--accent);
 
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 
 }
 
@@ -164,7 +164,7 @@ font-weight: 500;
   max-width: 650px;
 
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   color: var(--accent2);
   font-size: 60px;
   line-height: 1.5;
