@@ -63,17 +63,11 @@
 
       <h1>Vickie & Julien</h1>
 
-      <p class="subtitle" id="jours-countdown"></p>
-
+      <p class="subtitle" id="jours-countdown">J−...</p>
       <script>
-        (function() {
-          var target = new Date('2027-09-04');
-          var now = new Date();
-          now.setHours(0,0,0,0);
-          var diff = Math.round((target - now) / 86400000);
-          document.getElementById('jours-countdown').textContent = 'J−' + diff;
-        })();
-      <\/script>
+        var j = Math.round((new Date('2027-09-04') - new Date(new Date().setHours(0,0,0,0))) / 86400000);
+        document.getElementById('jours-countdown').textContent = 'J−' + j;
+      </script>
 
       <div class="event-info">
 
