@@ -63,10 +63,17 @@
 
       <h1>Vickie & Julien</h1>
 
-      <p class="subtitle">
-        Nous serions très heureux de vous avoir à nos côtés
-        pour célébrer cette journée.
-      </p>
+      <p class="subtitle" id="jours-countdown"></p>
+
+      <script>
+        (function() {
+          var target = new Date('2027-09-04');
+          var now = new Date();
+          now.setHours(0,0,0,0);
+          var diff = Math.round((target - now) / 86400000);
+          document.getElementById('jours-countdown').textContent = 'J−' + diff;
+        })();
+      <\/script>
 
       <div class="event-info">
 
@@ -94,9 +101,9 @@
 
       </div>
 
-      <!-- <div class="scroll-down">
+      <div class="scroll-down">
         ↓
-      </div> -->
+      </div>
 
     </div>
 
