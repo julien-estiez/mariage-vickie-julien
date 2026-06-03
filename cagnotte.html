@@ -149,19 +149,19 @@
 
     /* Grid liste de mariage */
     .gift-list {
-      max-width: 860px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 16px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
     }
 
     .gift-item {
       background: white;
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       display: flex;
       flex-direction: column;
       transition: transform 0.25s, box-shadow 0.25s;
@@ -169,7 +169,7 @@
 
     .gift-item:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.10);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.10);
     }
 
     .gift-item.taken {
@@ -178,14 +178,14 @@
 
     .gift-item-img {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
       object-position: center;
       display: block;
     }
 
     .gift-item-body {
-      padding: 22px 24px 24px;
+      padding: 14px 16px 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -195,20 +195,20 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .gift-item-name {
       font-family: "Arapey", serif;
-      font-size: 19px;
+      font-size: 16px;
       color: var(--text);
       line-height: 1.3;
     }
 
     .gift-item-price {
       font-family: "Arapey", serif;
-      font-size: 19px;
+      font-size: 16px;
       color: var(--accent);
       white-space: nowrap;
       flex-shrink: 0;
@@ -216,15 +216,15 @@
 
     /* Progress bar */
     .gift-progress-wrap {
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .gift-progress-track {
-      height: 7px;
+      height: 6px;
       background: #f0ebe4;
       border-radius: 100px;
       overflow: hidden;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .gift-progress-fill {
@@ -235,7 +235,7 @@
     }
 
     .gift-progress-label {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--secondary-text);
     }
 
@@ -246,18 +246,18 @@
       gap: 6px;
       background: #f3ede8;
       color: #9b7464;
-      font-size: 14px;
-      padding: 7px 14px;
+      font-size: 13px;
+      padding: 6px 12px;
       border-radius: 100px;
-      margin-top: 14px;
+      margin-top: 10px;
       font-family: "Arapey", serif;
     }
 
     /* Participate row */
     .gift-participate {
       display: flex;
-      gap: 10px;
-      margin-top: 16px;
+      gap: 8px;
+      margin-top: 12px;
       align-items: center;
     }
 
@@ -265,10 +265,10 @@
       flex: 1;
       min-width: 0;
       border: 1.5px solid #e0dbd2;
-      border-radius: 10px;
-      padding: 10px 14px;
+      border-radius: 8px;
+      padding: 8px 10px;
       font-family: "Arapey", serif;
-      font-size: 16px;
+      font-size: 14px;
       color: var(--text);
       background: #faf8f6;
       outline: none;
@@ -288,10 +288,10 @@
       background: var(--accent, #b87a5a);
       color: white;
       border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
+      border-radius: 8px;
+      padding: 8px 14px;
       font-family: "Arapey", serif;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
       white-space: nowrap;
@@ -302,11 +302,27 @@
       transform: translateY(-1px);
     }
 
+    .gift-loading {
+      text-align: center;
+      padding: 40px 0;
+      font-family: "Arapey", serif;
+      font-size: 17px;
+      color: var(--secondary-text);
+      grid-column: 1 / -1;
+    }
+
     @media (max-width: 768px) {
       .gift-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
       .gift-section-header h2 { font-size: 40px; }
+      .gift-item-name, .gift-item-price { font-size: 14px; }
+      .gift-participate-btn { padding: 7px 10px; font-size: 13px; }
+    }
+
+    @media (max-width: 480px) {
+      .gift-list { grid-template-columns: 1fr; }
     }
 
     /* ── ON PLACE BOX ── */
@@ -711,40 +727,113 @@
 </div>
 
   <script>
-    // ── LISTE DE MARIAGE ──
-    function initGiftList() {
+    // ════════════════════════════════════════════════
+    // CONFIGURATION — remplacez ces deux valeurs
+    // ════════════════════════════════════════════════
+    const SHEET_ID   = '1ExoyjlQ-z-hVGidwYiTb4ofIn49QIrOpUjMXgH1vqtM';      // ID du Google Sheet (dans l'URL)
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhlH94PrL6B1k3zxg8_BfHeuB7yLg7XJ-YzCS30sC3CibfL4ZdNonB0o9m4fFh7Mso/exec'; // URL de déploiement du Web App
+    // ════════════════════════════════════════════════
+
+    const ONPARTICIPE_URL = 'https://www.onparticipe.fr/c/18DRnl1n/participe';
+
+    // ── Lecture des données depuis Google Sheets (API publique) ──
+    async function fetchCollected() {
+      // L'onglet doit s'appeler "cadeaux" et avoir 3 colonnes : nom | prix | collecte
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=cadeaux`;
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+        // La réponse est du JSONP, on extrait le JSON
+        const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+        const rows = json.table.rows;
+        // Retourne un objet { nomCadeau: montantCollecté }
+        const data = {};
+        rows.forEach(row => {
+          if (row.c[0] && row.c[2]) {
+            data[row.c[0].v] = row.c[2].v || 0;
+          }
+        });
+        return data;
+      } catch (e) {
+        console.warn('Impossible de lire le Sheet, utilisation des valeurs HTML.', e);
+        return null;
+      }
+    }
+
+    // ── Écriture : envoie le nouveau montant collecté au Apps Script ──
+    async function updateCollected(nom, nouveauTotal) {
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Apps Script n'envoie pas de CORS headers en POST
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nom, collecte: nouveauTotal })
+        });
+      } catch (e) {
+        console.warn('Erreur mise à jour Sheet', e);
+      }
+    }
+
+    // ── Rendu d'une carte cadeau ──
+    function renderItem(item, collected) {
+      const price = parseInt(item.dataset.price, 10);
+      const pct = Math.min(100, Math.round((collected / price) * 100));
+      const fill = item.querySelector('.gift-progress-fill');
+      const label = item.querySelector('.gift-progress-label');
+      const participate = item.querySelector('.gift-participate');
+
+      // Nettoyer badge précédent si re-render
+      const oldBadge = item.querySelector('.gift-taken-badge');
+      if (oldBadge) oldBadge.remove();
+      item.classList.remove('taken');
+      participate.style.display = '';
+
+      fill.style.width = pct + '%';
+
+      if (pct >= 100) {
+        item.classList.add('taken');
+        label.textContent = 'Cadeau déjà pris ✓';
+        label.style.color = '#9b7464';
+        participate.style.display = 'none';
+        const badge = document.createElement('div');
+        badge.className = 'gift-taken-badge';
+        badge.innerHTML = '<span>🎁</span> Cadeau déjà pris';
+        item.querySelector('.gift-item-body').appendChild(badge);
+        fill.style.background = 'linear-gradient(90deg, #c8967a, #9b6344)';
+      } else {
+        fill.style.background = '';
+        label.style.color = '';
+        label.textContent = collected > 0
+          ? `${collected} € collectés sur ${price} € (${pct}%)`
+          : `0 € collecté sur ${price} €`;
+      }
+    }
+
+    // ── Initialisation ──
+    async function initGiftList() {
       const items = document.querySelectorAll('#gift-list .gift-item');
+
+      // 1. Charger les données du Sheet
+      const sheetData = await fetchCollected();
+
       items.forEach(item => {
         const price = parseInt(item.dataset.price, 10);
-        const collected = parseInt(item.dataset.collected, 10);
-        const pct = Math.min(100, Math.round((collected / price) * 100));
-        const fill = item.querySelector('.gift-progress-fill');
-        const label = item.querySelector('.gift-progress-label');
-        const participate = item.querySelector('.gift-participate');
-        const takenBadge = document.createElement('div');
+        const nom = item.querySelector('.gift-item-name').textContent.trim();
 
-        fill.style.width = pct + '%';
+        // Priorité : Sheet > data-collected HTML
+        let collected = sheetData && sheetData[nom] !== undefined
+          ? sheetData[nom]
+          : parseInt(item.dataset.collected, 10);
 
-        if (pct >= 100) {
-          // Cadeau complété
-          item.classList.add('taken');
-          label.textContent = 'Cadeau déjà pris ✓';
-          label.style.color = '#9b7464';
-          participate.style.display = 'none';
-          takenBadge.className = 'gift-taken-badge';
-          takenBadge.innerHTML = '<span>🎁</span> Cadeau déjà pris';
-          item.querySelector('.gift-item-body').appendChild(takenBadge);
-          fill.style.background = 'linear-gradient(90deg, #c8967a, #9b6344)';
-        } else {
-          label.textContent = collected > 0
-            ? `${collected} € collectés sur ${price} € (${pct}%)`
-            : `0 € collecté sur ${price} €`;
-        }
+        item.dataset.currentCollected = collected;
+
+        renderItem(item, collected);
 
         // Bouton participer
         const btn = item.querySelector('.gift-participate-btn');
         const input = item.querySelector('.gift-amount-input');
-        btn.addEventListener('click', () => {
+
+        btn.addEventListener('click', async () => {
           const amount = parseFloat(input.value);
           if (!amount || amount <= 0) {
             input.style.borderColor = '#e05c4a';
@@ -752,45 +841,38 @@
             setTimeout(() => { input.style.borderColor = ''; }, 1500);
             return;
           }
-          window.location.href = "https://www.onparticipe.fr/c/18DRnl1n/participe";
+
+          // Ouvrir onparticipe dans un nouvel onglet
+          window.open(ONPARTICIPE_URL, '_blank');
+
+          // Mettre à jour localement
+          const currentCollected = parseFloat(item.dataset.currentCollected) || 0;
+          const nouveau = Math.min(price, currentCollected + amount);
+          item.dataset.currentCollected = nouveau;
+          renderItem(item, nouveau);
+
+          // Vider l'input
+          input.value = '';
+
+          // Envoyer au Google Sheet
+          await updateCollected(nom, nouveau);
         });
       });
     }
 
     document.addEventListener('DOMContentLoaded', initGiftList);
 
-    // // Burger menu
-    // document.querySelector('.burger').addEventListener('click', () => {
-    //   const nav = document.querySelector('.nav-links');
-    //   nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-    // });
+    // Burger menu
     const burger = document.querySelector('.burger');
-  const menu = document.getElementById('mobile-menu');
-  const close = document.getElementById('menu-close');
+    const menu = document.getElementById('mobile-menu');
+    const close = document.getElementById('menu-close');
 
-  burger.addEventListener('click', () => menu.classList.add('open'));
-  close.addEventListener('click', () => menu.classList.remove('open'));
-
-  // Ferme aussi en cliquant en dehors des liens
-  menu.addEventListener('click', (e) => {
-    if (e.target === menu) menu.classList.remove('open');
-  });
+    burger.addEventListener('click', () => menu.classList.add('open'));
+    close.addEventListener('click', () => menu.classList.remove('open'));
+    menu.addEventListener('click', (e) => {
+      if (e.target === menu) menu.classList.remove('open');
+    });
   </script>
-  
-
-<!-- <script>
-  const burger = document.querySelector('.burger');
-  const menu = document.getElementById('mobile-menu');
-  const close = document.getElementById('menu-close');
-
-  burger.addEventListener('click', () => menu.classList.add('open'));
-  close.addEventListener('click', () => menu.classList.remove('open'));
-
-  // Ferme aussi en cliquant en dehors des liens
-  menu.addEventListener('click', (e) => {
-    if (e.target === menu) menu.classList.remove('open');
-  });
-</script> -->
 
 </body>
 </html>
