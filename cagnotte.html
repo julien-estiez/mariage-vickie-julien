@@ -437,6 +437,104 @@
     color: var(--secondary-text);
     padding: 8px;
   }
+
+  /* ── POPUP CONFIRMATION ── */
+  .confirm-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(60, 44, 36, 0.45);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(3px);
+  }
+
+  .confirm-overlay.open {
+    display: flex;
+  }
+
+  .confirm-box {
+    background: #fffaf7;
+    border-radius: 24px;
+    padding: 40px 36px 36px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.16);
+    text-align: center;
+    animation: popup-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes popup-in {
+    from { opacity: 0; transform: scale(0.88) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .confirm-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .confirm-box h3 {
+    font-family: "Allura", cursive;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--accent, #b87a5a);
+    margin-bottom: 12px;
+  }
+
+  .confirm-box p {
+    font-family: "Arapey", serif;
+    font-size: 17px;
+    color: var(--secondary-text, #7a6a5e);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .confirm-box p strong {
+    color: var(--accent, #b87a5a);
+  }
+
+  .confirm-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .confirm-btn-yes {
+    background: var(--accent, #b87a5a);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-family: "Arapey", serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .confirm-btn-yes:hover {
+    background: #9b6344;
+    transform: translateY(-1px);
+  }
+
+  .confirm-btn-no {
+    background: transparent;
+    color: var(--secondary-text, #7a6a5e);
+    border: 1.5px solid #d9d0c7;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-family: "Arapey", serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .confirm-btn-no:hover {
+    border-color: #b87a5a;
+    color: #b87a5a;
+  }
 </style>
 </head>
 
@@ -739,6 +837,19 @@
     </p>
     <a href="rsvp.html" class="btn">Répondre au faire-part</a>
   </section>
+  <!-- POPUP CONFIRMATION PAIEMENT -->
+  <div class="confirm-overlay" id="confirm-overlay">
+    <div class="confirm-box">
+      <div class="confirm-icon">🎁</div>
+      <h3>Merci !</h3>
+      <p id="confirm-text">Avez-vous bien finalisé votre don de <strong id="confirm-amount"></strong> pour <strong id="confirm-gift"></strong> ?</p>
+      <div class="confirm-actions">
+        <button class="confirm-btn-no" id="confirm-no">Non, j'ai annulé</button>
+        <button class="confirm-btn-yes" id="confirm-yes">Oui, c'est fait !</button>
+      </div>
+    </div>
+  </div>
+
   <div class="mobile-menu" id="mobile-menu">
   <button class="mobile-menu-close" id="menu-close">✕</button>
   <a href="index.html">Accueil</a>
@@ -750,44 +861,37 @@
 
   <script>
     // ════════════════════════════════════════════════
-    // CONFIGURATION — remplacez ces deux valeurs
+    // CONFIGURATION
     // ════════════════════════════════════════════════
-    const SHEET_ID   = '1ExoyjlQ-z-hVGidwYiTb4ofIn49QIrOpUjMXgH1vqtM';      // ID du Google Sheet (dans l'URL)
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhlH94PrL6B1k3zxg8_BfHeuB7yLg7XJ-YzCS30sC3CibfL4ZdNonB0o9m4fFh7Mso/exec'; // URL de déploiement du Web App
-    // ════════════════════════════════════════════════
-
+    const SHEET_ID   = '1ExoyjlQ-z-hVGidwYiTb4ofIn49QIrOpUjMXgH1vqtM';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhlH94PrL6B1k3zxg8_BfHeuB7yLg7XJ-YzCS30sC3CibfL4ZdNonB0o9m4fFh7Mso/exec';
     const ONPARTICIPE_URL = 'https://www.onparticipe.fr/c/18DRnl1n/participe';
+    // ════════════════════════════════════════════════
 
-    // ── Lecture des données depuis Google Sheets (API publique) ──
+    // ── Lecture Google Sheets ──
     async function fetchCollected() {
-      // L'onglet doit s'appeler "cadeaux" et avoir 3 colonnes : nom | prix | collecte
       const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=cadeaux`;
       try {
         const res = await fetch(url);
         const text = await res.text();
-        // La réponse est du JSONP, on extrait le JSON
         const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
-        const rows = json.table.rows;
-        // Retourne un objet { nomCadeau: montantCollecté }
         const data = {};
-        rows.forEach(row => {
-          if (row.c[0] && row.c[2]) {
-            data[row.c[0].v] = row.c[2].v || 0;
-          }
+        json.table.rows.forEach(row => {
+          if (row.c[0] && row.c[2] != null) data[row.c[0].v] = row.c[2].v || 0;
         });
         return data;
       } catch (e) {
-        console.warn('Impossible de lire le Sheet, utilisation des valeurs HTML.', e);
+        console.warn('Sheet illisible, fallback HTML.', e);
         return null;
       }
     }
 
-    // ── Écriture : envoie le nouveau montant collecté au Apps Script ──
+    // ── Écriture Google Sheets ──
     async function updateCollected(nom, nouveauTotal) {
       try {
         await fetch(SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors', // Apps Script n'envoie pas de CORS headers en POST
+          mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nom, collecte: nouveauTotal })
         });
@@ -796,7 +900,7 @@
       }
     }
 
-    // ── Rendu d'une carte cadeau ──
+    // ── Rendu d'une carte ──
     function renderItem(item, collected) {
       const price = parseInt(item.dataset.price, 10);
       const pct = Math.min(100, Math.round((collected / price) * 100));
@@ -804,7 +908,6 @@
       const label = item.querySelector('.gift-progress-label');
       const participate = item.querySelector('.gift-participate');
 
-      // Nettoyer badge précédent si re-render
       const oldBadge = item.querySelector('.gift-taken-badge');
       if (oldBadge) oldBadge.remove();
       item.classList.remove('taken');
@@ -826,38 +929,68 @@
         fill.style.background = '';
         label.style.color = '';
         label.textContent = collected > 0
-          ? ``
-          : ``;
-          // ? `${collected} € collectés sur ${price} € (${pct}%)`
-          // : `0 € collecté sur ${price} €`;
+          ? `${collected} € collectés sur ${price} € (${pct}%)`
+          : '';
       }
     }
 
-    // ── Initialisation ──
+    // ── Popup ──
+    const overlay  = document.getElementById('confirm-overlay');
+    const confirmAmountEl = document.getElementById('confirm-amount');
+    const confirmGiftEl   = document.getElementById('confirm-gift');
+    const btnYes   = document.getElementById('confirm-yes');
+    const btnNo    = document.getElementById('confirm-no');
+
+    let pendingConfirm = null; // { item, nom, amount, input }
+
+    function openPopup(item, nom, amount, input) {
+      confirmAmountEl.textContent = amount + ' €';
+      confirmGiftEl.textContent = nom;
+      pendingConfirm = { item, nom, amount, input };
+      overlay.classList.add('open');
+    }
+
+    function closePopup() {
+      overlay.classList.remove('open');
+      pendingConfirm = null;
+    }
+
+    btnNo.addEventListener('click', closePopup);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+
+    btnYes.addEventListener('click', async () => {
+      if (!pendingConfirm) return;
+      const { item, nom, amount, input } = pendingConfirm;
+      closePopup();
+
+      const price = parseInt(item.dataset.price, 10);
+      const current = parseFloat(item.dataset.currentCollected) || 0;
+      const nouveau = Math.min(price, current + amount);
+      item.dataset.currentCollected = nouveau;
+      renderItem(item, nouveau);
+      input.value = '';
+
+      await updateCollected(nom, nouveau);
+    });
+
+    // ── Init ──
     async function initGiftList() {
       const items = document.querySelectorAll('#gift-list .gift-item');
-
-      // 1. Charger les données du Sheet
       const sheetData = await fetchCollected();
 
       items.forEach(item => {
-        const price = parseInt(item.dataset.price, 10);
         const nom = item.querySelector('.gift-item-name').textContent.trim();
-
-        // Priorité : Sheet > data-collected HTML
         let collected = sheetData && sheetData[nom] !== undefined
           ? sheetData[nom]
           : parseInt(item.dataset.collected, 10);
 
         item.dataset.currentCollected = collected;
-
         renderItem(item, collected);
 
-        // Bouton participer
-        const btn = item.querySelector('.gift-participate-btn');
+        const btn   = item.querySelector('.gift-participate-btn');
         const input = item.querySelector('.gift-amount-input');
 
-        btn.addEventListener('click', async () => {
+        btn.addEventListener('click', () => {
           const amount = parseFloat(input.value);
           if (!amount || amount <= 0) {
             input.style.borderColor = '#e05c4a';
@@ -865,21 +998,10 @@
             setTimeout(() => { input.style.borderColor = ''; }, 1500);
             return;
           }
-
-          // Ouvrir onparticipe dans un nouvel onglet
+          // 1. Ouvrir la cagnotte dans un nouvel onglet
           window.open(ONPARTICIPE_URL, '_blank');
-
-          // Mettre à jour localement
-          const currentCollected = parseFloat(item.dataset.currentCollected) || 0;
-          const nouveau = Math.min(price, currentCollected + amount);
-          item.dataset.currentCollected = nouveau;
-          renderItem(item, nouveau);
-
-          // Vider l'input
-          input.value = '';
-
-          // Envoyer au Google Sheet
-          await updateCollected(nom, nouveau);
+          // 2. Afficher le popup de confirmation sur cette page
+          openPopup(item, nom, amount, input);
         });
       });
     }
@@ -888,14 +1010,11 @@
 
     // Burger menu
     const burger = document.querySelector('.burger');
-    const menu = document.getElementById('mobile-menu');
-    const close = document.getElementById('menu-close');
-
+    const menu   = document.getElementById('mobile-menu');
+    const close  = document.getElementById('menu-close');
     burger.addEventListener('click', () => menu.classList.add('open'));
-    close.addEventListener('click', () => menu.classList.remove('open'));
-    menu.addEventListener('click', (e) => {
-      if (e.target === menu) menu.classList.remove('open');
-    });
+    close.addEventListener('click',  () => menu.classList.remove('open'));
+    menu.addEventListener('click',   (e) => { if (e.target === menu) menu.classList.remove('open'); });
   </script>
 
 </body>
