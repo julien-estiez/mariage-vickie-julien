@@ -516,6 +516,24 @@
 
     <div class="gift-list" id="gift-list">
 
+      <div class="gift-item" data-price="0" data-collected="0">
+        <img class="gift-item-img" src="./images/tirelire-cochon-en-ceramique.jpg" alt="Participation libre">
+        <div class="gift-item-body">
+          <div class="gift-item-top">
+            <span class="gift-item-name">Participation libre</span>
+            <span class="gift-item-price">- €</span>
+          </div>
+          <div class="gift-progress-wrap">
+            <div class="gift-progress-track"><div class="gift-progress-fill"></div></div>
+            <div class="gift-progress-label"></div>
+          </div>
+          <div class="gift-participate">
+            <input class="gift-amount-input" type="number" placeholder="Montant €" min="1">
+            <button class="gift-participate-btn">Je participe</button>
+          </div>
+        </div>
+      </div>
+
       <div class="gift-item" data-price="350" data-collected="0">
         <img class="gift-item-img" src="./images/Lit.jpg" alt="Lits & literie">
         <div class="gift-item-body">
@@ -808,8 +826,8 @@
         fill.style.background = '';
         label.style.color = '';
         label.textContent = collected > 0
-          ? `${collected} € collectés sur ${price} € (${pct}%)`
-          : `0 € collecté sur ${price} €`;
+          // ? `${collected} € collectés sur ${price} € (${pct}%)`
+          // : `0 € collecté sur ${price} €`;
       }
     }
 
