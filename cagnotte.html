@@ -619,7 +619,7 @@
         <div class="gift-item-body">
           <div class="gift-item-top">
             <span class="gift-item-name">Participation libre</span>
-            <span class="gift-item-price">- €</span>
+            <!-- <span class="gift-item-price">- €</span> -->
           </div>
           <div class="gift-progress-wrap">
             <div class="gift-progress-track"><div class="gift-progress-fill"></div></div>
@@ -942,7 +942,8 @@
         fill.style.background = '';
         label.style.color = '';
         label.textContent = collected > 0
-          ? `${collected} € collectés sur ${price} € (${pct}%)`
+          ? `${collected} € collectés `
+          // sur ${price} € (${pct}%)
           : '';
       }
     }
