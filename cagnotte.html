@@ -871,17 +871,30 @@
     // ── Lecture Google Sheets ──
     async function fetchCollected() {
       const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=cadeaux`;
+      console.log("[Sheet] Fetching:", url);
       try {
         const res = await fetch(url);
+        console.log("[Sheet] HTTP status:", res.status);
         const text = await res.text();
-        const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+        console.log("[Sheet] Raw (200 chars):", text.substring(0, 200));
+        const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
+        if (!match) {
+          console.error("[Sheet] Pas de réponse JSONP — Sheet bien partagé en lecture publique ?");
+          return null;
+        }
+        const json = JSON.parse(match[1]);
+        console.log("[Sheet] Rows reçues:", json.table.rows.length);
         const data = {};
-        json.table.rows.forEach(row => {
-          if (row.c[0] && row.c[2] != null) data[row.c[0].v] = row.c[2].v || 0;
+        json.table.rows.forEach((row, i) => {
+          const nom = row.c[0]?.v;
+          const collecte = row.c[2]?.v ?? 0;
+          console.log(`[Sheet] Ligne ${i}: nom="${nom}", collecte=${collecte}`);
+          if (nom != null) data[nom] = collecte;
         });
+        console.log("[Sheet] Données finales:", data);
         return data;
       } catch (e) {
-        console.warn('Sheet illisible, fallback HTML.', e);
+        console.error("[Sheet] Erreur:", e);
         return null;
       }
     }
